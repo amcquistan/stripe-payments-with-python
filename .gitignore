@@ -1,3 +1,5 @@
 randonumber/venv*
 randonumber/.env
+randonumber/randonumber/__pycache__*
+randonumber/randonumber/randonumber.sqlite3
 
