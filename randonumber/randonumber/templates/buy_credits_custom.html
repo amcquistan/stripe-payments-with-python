@@ -1,0 +1,54 @@
+
+<!-- buy_credits_custom.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<div class="container" style="margin-top: 110px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Buy Credits</h2>
+
+      <form action="{{ url_for('buy_credits') }}" method="POST">
+        <div class="form-group">
+          <label for="credits">Credits</label>
+          <input type="number" class="form-control" id="credits" name="credits" required>
+        </div>
+        <input type="hidden" id='stripeToken' name='stripeToken' value=''>
+        <input type="hidden" id='stripeEmail' name='stripeEmail' value=''>
+      </form>
+      <button class="btn btn-primary" id='stripe-checkout'>Buy Now</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var handler = StripeCheckout.configure({
+  key: '{{ stripe_key }}',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    $('#stripeToken').val(token.id)
+    $('#stripeEmail').val(token.email)
+    $('form').submit()
+  }
+});
+
+$('#stripe-checkout').click(function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'Rando Number',
+    description: 'Random Number Credits',
+    amount: $('#credits').val() * 100
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
+
+{% endblock %}

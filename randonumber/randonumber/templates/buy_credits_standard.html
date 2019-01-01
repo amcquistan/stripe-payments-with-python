@@ -1,0 +1,29 @@
+
+<!-- buy_credits_standard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container" style="margin-top: 110px;">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>Buy Credits</h2>
+
+      <form action="{{ url_for('buy_credits') }}" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="{{ stripe_key }}"
+          data-amount="100"
+          data-name="Rando Number"
+          data-description="Random number credits"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto">
+        </script>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

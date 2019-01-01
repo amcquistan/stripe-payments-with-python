@@ -1,0 +1,38 @@
+<!-- user_profile.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+  <h5 class="card-header">Credits Remaining</h5>
+  <div class="card-body">
+    <p class="card-text">{{ user.account_credits }}</p>
+    <a href="{{ url_for('show_buy_credits') }}" class="btn btn-primary">Buy More Credits</a>
+  </div>
+</div>
+<br>
+<br>
+<div class="card">
+    <h5 class="card-header">Purchase History</h5>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount (USD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for purchase in purchases %}
+          <tr>
+            <td>{{ purchase.created_at }}</td>
+            <td>{{ purchase.amount }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}
